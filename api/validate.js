@@ -1,4 +1,4 @@
-module.exports = { validateID, validateBody };
+module.exports = { validateID, validateProjectBody, validateTask };
 
 const db = require('../data/helpers/projectModel');
 
@@ -13,8 +13,14 @@ function validateID(req, res, next) {
       .catch(() => res.status(500).json({ error: "The project data could not be retrieved." }))
 }
 
-function validateBody(req, res, next) {
+function validateProjectBody(req, res, next) {
   if (!req.body) res.status(400).json({ message: "Missing multiple BODY inputs." })
   else if (!req.body.name) res.status(400).json({ message: "Missing required name input." })
+  else next();
+}
+
+function validateTask(req, res, next) {
+  if (!req.body) res.status(400).json({ message: "Missing multiple BODY inputs." })
+  else if (!req.body.description || !req.body.project_id) res.status(400).json({ message: "Missing required description or project_id input." })
   else next();
 }

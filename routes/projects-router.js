@@ -17,7 +17,7 @@ router.get('/:id', validate.validateID, (req, res) => {
     .catch(err => res.status(500).json(err))
 })
 
-router.post('/', validate.validateBody, (req, res) => {
+router.post('/', validate.validateProjectBody, (req, res) => {
   db.insert(req.body)
     .then(() => res.status(201).json(req.body))
     .catch(() => res.status(500).json({ error: 'There was an error while saving the project to the database' }))
