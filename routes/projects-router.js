@@ -17,17 +17,4 @@ router.get('/:id', validate.validateID, (req, res) => {
     .catch(err => res.status(500).json(err))
 })
 
-router.get('/:id/tasks', (req, res) => {
-  db.getTasks(req.params.id)
-    .then(projects => res.status(200).json(projects))
-    .catch(err => res.status(500).json(err))
-})
-
-router.get('/:id/resources', (req, res) => {
-  db.getResources(req.params.id)
-    .then(projects => res.status(200).json(projects))
-    .catch(err => res.status(500).json(err))
-})
-
-
 module.exports = router;
