@@ -1,7 +1,7 @@
 const db = require('../dbConfig');
 const mappers = require('./mappers');
 
-module.exports = { getProjects, getTasks, getResources }
+module.exports = { getProjects, getTasks, getResources, insert }
 
 function getProjects(id) {
   let query = db('projects as p');
@@ -25,13 +25,7 @@ function getProjects(id) {
   }
 
   return query
-    .join('tasks as t', 'p.id', 't.project_id')
-    .select(
-      'p.id', 
-      'p.name', 
-      'p.description', 
-      'p.completed',
-    )
+    .select('p.id', 'p.name', 'p.description', 'p.completed')
     .then(projects => projects.map(project => mappers.projectToBody(project)))
 };
 
@@ -45,4 +39,10 @@ function getResources(id) {
   return db('resources')
     .where('project_id', id)
     .then(resources => resources.map(resource => mappers.resourceToBody(resource)))
+}
+
+function insert(project) {
+  return db('projects')
+    .insert(project, 'id')
+    .then(id => id)
 }
