@@ -1,7 +1,14 @@
 const db = require('../dbConfig');
+const mappers = require('./mappers');
 
-module.exports = { getProjects }
+module.exports = { get }
 
-function getProjects() {
-  return db('projects')
+function get(id) {
+  let query = db('projects as p');
+  
+  // if (id) {
+
+  // }
+
+  return query.then(projects => projects.map(project => mappers.projectToBody(project)))
 };
