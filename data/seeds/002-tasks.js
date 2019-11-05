@@ -6,22 +6,22 @@ exports.seed = function(knex) {
         { 
           id: 1, 
           project_id: 1, 
-          notes: "this is the first task", 
-          description: 'complete the first task',
+          notes: "order by amount", 
+          description: 'set the order by amount in redux',
           completed: false
         },
         { 
           id: 2, 
           project_id: 1, 
-          notes: "this is the second task", 
-          description: 'complete the second task',
+          notes: "order by date", 
+          description: 'set the order by date in redux',
           completed: false
         },
         { 
           id: 3, 
           project_id: 2, 
-          notes: "this is the first task of the second project", 
-          description: 'complete the first task of project number 2',
+          notes: "pull from api", 
+          description: 'pull all the data from the api',
           completed: false
         },
       ]);

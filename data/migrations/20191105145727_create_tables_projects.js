@@ -6,8 +6,6 @@ exports.up = function(knex) {
       table.string('name', 128).notNullable();
       table.string('description', 256);
       table.boolean('completed').defaultTo(false);
-      table.string('tasks');
-      table.string('resources');
     })
     .createTable('tasks', table => {
       table.increments();
@@ -26,5 +24,7 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema
-    .dropTableIfExists('recipes')
+    .dropTableIfExists('resources')
+    .dropTableIfExists('tasks')
+    .dropTableIfExists('projects')
 };

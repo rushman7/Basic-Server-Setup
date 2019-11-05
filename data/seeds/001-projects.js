@@ -5,14 +5,14 @@ exports.seed = function(knex) {
       return knex('projects').insert([
         {
           id: 1, 
-          name: 'project name here',
-          description: 'the project description',
+          name: 'Budget IO',
+          description: 'save dat money',
           completed: false
         },
         {
           id: 2, 
-          name: 'second project',
-          description: 'the second project description',
+          name: 'HS Deck Builder',
+          description: 'build dat deck',
           completed: false
         }
       ]);

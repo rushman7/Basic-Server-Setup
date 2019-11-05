@@ -6,27 +6,21 @@ exports.seed = function(knex) {
         { 
           id: 1, 
           project_id: 1, 
-          name: "this is the first resource", 
-          description: 'the first resource'
+          name: "Redux", 
+          description: 'sort all data through redux state'
         },
         { 
           id: 2, 
           project_id: 1, 
-          name: "this is the second resource", 
-          description: 'the second resource'
+          name: "display react", 
+          description: 'display all that data once completed'
         },
         { 
           id: 3, 
           project_id: 2, 
-          name: "this is the first resource of the second project", 
-          description: 'the first resource of project number 2'
-        },
-        { 
-          id: 2, 
-          project_id: 2, 
-          name: "this is the second resource", 
-          description: 'the second resource'
-        },
+          name: "API", 
+          description: 'pull from rapid fire HS api'
+        }
       ]);
     });
 };
