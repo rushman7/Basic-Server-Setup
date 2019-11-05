@@ -43,6 +43,6 @@ function getResources(id) {
 
 function insert(project) {
   return db('projects')
-    .insert(project, 'id')
-    .then(id => id)
+    .insert(project)
+    .then(id => this.getProjects(id[0]))
 }
