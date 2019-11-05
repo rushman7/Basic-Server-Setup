@@ -12,13 +12,25 @@ exports.up = function(knex) {
       table.string('description', 256).notNullable();
       table.string('notes', 256);
       table.boolean('completed').defaultTo(false);
-      table.integer('project_id').unsigned().notNullable().references('projects.id')
+      table
+        .integer('project_id')
+        .unsigned()
+        .notNullable()
+        .references('projects.id')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
     })
     .createTable('resources', table => {
       table.increments();
       table.string('name', 128).notNullable();
       table.string('description', 256);
-      table.integer('project_id').unsigned().notNullable().references('projects.id')
+      table
+        .integer('project_id')
+        .unsigned()
+        .notNullable()
+        .references('projects.id')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
     })
 };
 
