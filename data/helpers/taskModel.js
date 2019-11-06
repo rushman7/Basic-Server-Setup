@@ -5,7 +5,7 @@ module.exports = { getTasks, insert }
 
 function getTasks(id) {
   return db('tasks')
-    .where('project_id', id).first()
+    .where('project_id', id)
     .then(tasks => tasks.map(task => mappers.taskToBody(task)))
 }
 

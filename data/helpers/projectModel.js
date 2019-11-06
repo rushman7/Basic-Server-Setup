@@ -36,13 +36,14 @@ function getTasks(id) {
 }
 
 function getResources(id) {
-  return db('resources')
-    .where('project_id', id)
+  return db('projects as p')
+    .join('projects_resources as pr', 'p.id', 'pr.project_id')
+    .join('resources as r', 'pr.resource_id', 'r.id')
+    .where('p.id', id)
     .then(resources => resources.map(resource => mappers.resourceToBody(resource)))
 }
 
 function insert(project) {
   return db('projects')
     .insert(project)
-    .then(id => this.getProjects(id[0]))
 }
