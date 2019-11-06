@@ -17,7 +17,7 @@ router.get('/:id', validate.validateID, (req, res) => {
     .catch(err => res.status(500).json(err))
 })
 
-router.post('/:id', validate.validateID, validate.validateResource, (req, res) => {
+router.post('/', validate.validateID, validate.validateResource, (req, res) => {
   db.insert(req.body)
     .then(() => res.status(201).json(req.body))
     .catch(err => console.log(err))
