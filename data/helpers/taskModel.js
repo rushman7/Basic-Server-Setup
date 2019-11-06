@@ -1,9 +1,14 @@
 const db = require('../dbConfig');
 const mappers = require('./mappers');
 
-module.exports = { getTasks, insert }
+module.exports = { getTask, insert, getTasks }
 
-function getTasks(id) {
+function getTasks() {
+  return db('tasks')
+    .then(tasks => tasks.map(task => mappers.taskToBody(task)))
+}
+
+function getTask(id) {
   return db('tasks')
     .where('project_id', id)
     .then(tasks => tasks.map(task => mappers.taskToBody(task)))

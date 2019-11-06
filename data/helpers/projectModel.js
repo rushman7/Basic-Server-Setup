@@ -37,8 +37,7 @@ function getTasks(id) {
 
 function getResources(id) {
   return db('projects as p')
-    .join('projects_resources as pr', 'p.id', 'pr.project_id')
-    .join('resources as r', 'pr.resource_id', 'r.id')
+    .join('resources as r', 'p.id', 'r.project_id')
     .where('p.id', id)
     .then(resources => resources.map(resource => mappers.resourceToBody(resource)))
 }

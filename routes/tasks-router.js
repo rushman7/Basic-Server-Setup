@@ -5,9 +5,15 @@ const validate = require('../api/validate');
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  db.getTasks()
+    .then(tasks => res.status(200).json(tasks))
+    .catch(err => res.status(500).json(err))
+})
+
 router.get('/:id', validate.validateID, (req, res) => {
-  db.getTasks(req.params.id)
-    .then(projects => res.status(200).json(projects))
+  db.getTask(req.params.id)
+    .then(tasks => res.status(200).json(tasks))
     .catch(err => res.status(500).json(err))
 })
 
