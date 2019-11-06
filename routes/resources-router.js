@@ -1,6 +1,6 @@
 const express = require('express');
 
-const db = require('../data/helpers/projectModel');
+const db = require('../data/helpers/resourceModel');
 const validate = require('../api/validate');
 
 const router = express.Router();
@@ -18,7 +18,7 @@ router.get('/:id', validate.validateID, (req, res) => {
 })
 
 router.post('/:id', validate.validateID, validate.validateResource, (req, res) => {
-  db.insert(req.params.id, req.body)
+  db.insert(req.body)
     .then(() => res.status(201).json(req.body))
     .catch(err => console.log(err))
 })

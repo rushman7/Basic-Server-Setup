@@ -3,26 +3,19 @@ const mappers = require('./mappers');
 
 module.exports = { getResources, insert }
 
-// function getResources(id) {
-//   let query = db('resources as r');
-
-//   if (id) {
-//     return query
-//       .where('project_id', id)
-//       .then(resources => resources.map(resource => mappers.resourceToBody(resource)))
-//   }
-
-//   return query
-//     .select('r.id', 'r.name', 'r.description', 'r.project_id')
-//     .then(resources => resources.map(resource => resource))
-// }
-
-function getResources() {
-  return db('resources')
+function getResources(id) {
+  if (id) {
+    return db('projects as p')
+      .join('projects_resources as pr', 'p.id', 'pr.project_id')
+      .join('resources as r', 'pr.resource_id', 'r.id')
+      .select('r.id', 'r.name', 'r.description', 'pr.project_id')
+      .where('p.id', id)
+  } else {
+    return db('resources')
+  }
 }
 
-function insert(id, resource) {
+function insert(resource) {
   return db('resources')
-    .where({ 'project_id': id })
     .insert(resource);
 }
