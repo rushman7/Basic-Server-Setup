@@ -7,11 +7,12 @@ module.exports = {
   restricted
 };
 
-const db = require('../data/helpers/projectModel');
+const projectDB = require('../data/helpers/projectModel');
+const userDB = require('../data/helpers/userModel');
 const bcrypt = require('bcryptjs');
 
 function validateID(req, res, next) {
-  return db.getProjects(req.params.id)
+  return projectDB.getProjects(req.params.id)
       .then(project => {
         if (project) {
           next();
@@ -50,7 +51,7 @@ function restricted(req, res, next) {
   const { username, password } = req.headers;
 
   if (username && password) {
-    db.getUsers({ username })
+    userDB.getUsers({ username })
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) next();
         else res.status(401).json({ error: `Invalid credentials.` })

@@ -11,6 +11,13 @@ exports.up = function(knex) {
       table.string('name', 128).notNullable();
       table.string('description', 256);
       table.boolean('completed').defaultTo(false);
+      table
+        .integer('user_id')
+        .unsigned()
+        .notNullable()
+        .references('users.id')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
     })
     .createTable('tasks', table => {
       table.increments();
