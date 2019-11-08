@@ -1,5 +1,4 @@
 const express = require('express');
-const logger = require('./api/logger');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -15,9 +14,9 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(morgan("combined"));
 server.use(helmet());
 
-server.use('/api/projects', logger(), projectRouter);
-server.use('/api/tasks', logger(), taskRouter);
-server.use('/api/resources', logger(), resourceRouter);
-server.use('/api', logger(), userRouter);
+server.use('/api/projects', projectRouter);
+server.use('/api/tasks', taskRouter);
+server.use('/api/resources', resourceRouter);
+server.use('/api', userRouter);
 
 module.exports = server;
