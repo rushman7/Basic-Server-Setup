@@ -7,7 +7,9 @@ function getUsers(username) {
 
   if (username) query.where(username).first();
 
-  return query.select('u.id', 'u.username', 'u.password');
+  return query
+    .select('u.id', 'u.username', 'u.password', 'p.name')
+    .join('projects as p', 'u.id', 'p.user_id');
 };
 
 function add(user) {

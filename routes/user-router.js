@@ -6,7 +6,7 @@ const middleware = require('../api/middleware');
 
 const router = express.Router();
 
-router.get('/users', middleware.restricted, (req, res) => {
+router.get('/users', (req, res) => {
   db.getUsers()
     .then(users => res.status(200).json(users))
     .catch(err => res.status(500).json(err))
