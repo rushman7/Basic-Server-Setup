@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/users', middleware.restricted, (req, res) => {
   db.getUsers(req.session.user)
     .then(users => res.status(200).json(users))
-    .catch(err => res.status(500).json(err))
+    .catch(err => console.log(err))
 })
 
 router.post('/register', middleware.validateCredentialBody, (req, res) => {

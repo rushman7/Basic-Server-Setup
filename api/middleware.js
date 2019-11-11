@@ -9,6 +9,7 @@ module.exports = {
 };
 
 const projectDB = require('../data/helpers/projectModel');
+const jwt = require('jsonwebtoken');
 
 function validateID(req, res, next) {
   return projectDB.getProjects(req.params.id)

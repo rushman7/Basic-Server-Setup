@@ -13,7 +13,7 @@ const sessionConfig = {
   name: 'userID', // sid
   secret: 'useID credential data.',
   cookie: {
-    maxAge: 1000 * 60,
+    maxAge: 1000 * 120,
     secure: false, // true in production
     httpOnly: true,
   },
