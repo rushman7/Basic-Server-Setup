@@ -1,5 +1,4 @@
 const db = require('../dbConfig');
-const mappers = require('./mappers');
 
 module.exports = { getResources, insert }
 

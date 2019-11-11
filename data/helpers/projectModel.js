@@ -1,15 +1,19 @@
 const db = require('../dbConfig');
 const mappers = require('./mappers');
+const taskMiddleware = require('./taskModel');
+const resourceMiddleware = require('./resourceModel');
 
-module.exports = { getProjects, getTasks, getResources, insert }
+module.exports = { getProjects, insert }
 
 function getProjects(id) {
-  let query = db('projects as p');
+  let query = db('projects as p')
+    .select('p.id as project_id', 'p.name', 'p.description', 'p.completed', 'u.username as student')
+    .join('users as u', 'u.id', 'p.user_id');
   
   if (id) {
     query.where('p.id', id).first();
 
-    return Promise.all([query, this.getTasks(id), this.getResources(id)])
+    return Promise.all([query, taskMiddleware.getTask(id), resourceMiddleware.getResources(id)])
       .then(function(results) {
         let [project, tasks, resources] = results
 
@@ -24,23 +28,8 @@ function getProjects(id) {
       });
   }
 
-  return query
-    .select('p.id', 'p.name', 'p.description', 'p.completed')
-    .then(projects => projects.map(project => mappers.projectToBody(project)))
+  return query.then(projects => projects.map(project => mappers.projectToBody(project)))
 };
-
-function getTasks(id) {
-  return db('tasks')
-    .where('project_id', id)
-    .then(tasks => tasks.map(task => mappers.taskToBody(task)))
-}
-
-function getResources(id) {
-  return db('projects as p')
-    .join('resources as r', 'p.id', 'r.project_id')
-    .where('p.id', id)
-    .then(resources => resources.map(resource => mappers.resourceToBody(resource)))
-}
 
 function insert(project) {
   return db('projects')
