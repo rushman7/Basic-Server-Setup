@@ -6,8 +6,8 @@ const middleware = require('../api/middleware');
 
 const router = express.Router();
 
-router.get('/users', (req, res) => {
-  db.getUsers()
+router.get('/users', middleware.restricted, (req, res) => {
+  db.getUsers(req.session.user)
     .then(users => res.status(200).json(users))
     .catch(err => res.status(500).json(err))
 })
@@ -27,11 +27,17 @@ router.post('/register', middleware.validateCredentialBody, (req, res) => {
 router.post('/login', middleware.validateCredentialBody, (req, res) => {
   const { username, password } = req.body;
 
-  db.getUsers({ username })
+  db.getUser({ username })
     .then(user => {
-      console.log(user)
-      if (user && bcrypt.compareSync(password, user.password)) res.status(201).json({ message: `Logged in, welcome ${user.username}!` })
-      else res.status(401).json({ error: `Invalid credentials.` })
+      if (user && bcrypt.compareSync(password, user.password)) {
+        const token = middleware.generateToken(user);
+
+        req.session.user = user;
+        res.status(201).json({
+           message: `Logged in, welcome ${user.username}!`,
+           token,
+        })
+      } else res.status(401).json({ error: `Invalid credentials.` })
     })
     .catch(err => res.status(500).json(err))
 })

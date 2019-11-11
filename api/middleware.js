@@ -4,12 +4,11 @@ module.exports = {
   validateTask,
   validateResource,
   validateCredentialBody,
-  restricted
+  restricted,
+  generateToken
 };
 
 const projectDB = require('../data/helpers/projectModel');
-const userDB = require('../data/helpers/userModel');
-const bcrypt = require('bcryptjs');
 
 function validateID(req, res, next) {
   return projectDB.getProjects(req.params.id)
