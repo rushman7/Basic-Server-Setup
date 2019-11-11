@@ -12,6 +12,12 @@ router.get('/users', middleware.restricted, (req, res) => {
     .catch(err => console.log(err))
 })
 
+router.get('/user/:id', middleware.restricted, (req, res) => {
+  db.getUser(req.params.id)
+    .then(user => res.status(200).json(user))
+    .catch(err => res.status(500).json(err))
+})
+
 router.post('/register', middleware.validateCredentialBody, (req, res) => {
   const credentials = req.body;
 

@@ -23,6 +23,7 @@ function validateID(req, res, next) {
 
 function validateProjectBody(req, res, next) {
   if (!req.body) res.status(400).json({ message: "Missing multiple BODY inputs." })
+  else if (!req.body.user_id) res.status(400).json({ message: "Missing required user_id input." })
   else if (!req.body.name) res.status(400).json({ message: "Missing required name input." })
   else next();
 }

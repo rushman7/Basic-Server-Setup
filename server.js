@@ -8,6 +8,7 @@ const projectRouter = require('./routes/projects-router');
 const taskRouter = require('./routes/tasks-router');
 const resourceRouter = require('./routes/resources-router');
 const userRouter = require('./routes/user-router');
+const middleware = require('./api/middleware');
 
 const sessionConfig = {
   name: 'userID', // sid
@@ -28,9 +29,9 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(morgan("combined"));
 server.use(helmet());
 
-server.use('/api/projects', projectRouter);
-server.use('/api/tasks', taskRouter);
-server.use('/api/resources', resourceRouter);
+server.use('/api/projects', middleware.restricted, projectRouter);
+server.use('/api/tasks', middleware.restricted, taskRouter);
+server.use('/api/resources', middleware.restricted, resourceRouter);
 server.use('/api', userRouter);
 
 module.exports = server;
