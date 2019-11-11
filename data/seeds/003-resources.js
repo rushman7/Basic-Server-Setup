@@ -11,12 +11,12 @@ exports.seed = function(knex) {
         { 
           name: "display react", 
           description: 'display all that data once completed',
-          project_id: 1, 
+          project_id: 2, 
         },
         { 
           name: "API", 
           description: 'pull from rapid fire HS api',
-          project_id: 2 
+          project_id: 3 
         }
       ]);
     });

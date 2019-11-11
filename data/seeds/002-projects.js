@@ -14,6 +14,12 @@ exports.seed = function(knex) {
           description: 'build dat deck',
           user_id: 2,
           completed: false
+        },
+        {
+          name: 'Poke API',
+          description: 'Whos that pokemon?',
+          user_id: 3,
+          completed: false
         }
       ]);
     });

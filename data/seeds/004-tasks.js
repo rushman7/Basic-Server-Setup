@@ -10,13 +10,13 @@ exports.seed = function(knex) {
           completed: false
         },
         { 
-          project_id: 1, 
+          project_id: 2, 
           notes: "order by date", 
           description: 'set the order by date in redux',
           completed: false
         },
         { 
-          project_id: 2, 
+          project_id: 3, 
           notes: "pull from api", 
           description: 'pull all the data from the api',
           completed: false
