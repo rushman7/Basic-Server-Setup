@@ -1,7 +1,7 @@
 const db = require('../dbConfig');
 const mappers = require('./mappers');
 
-module.exports = { getTask, insert, getTasks }
+module.exports = { getTask, insert, getTasks, update, remove }
 
 function getTasks() {
   return db('tasks')
@@ -16,6 +16,16 @@ function getTask(id) {
 
 function insert(id, task) {
   return db('tasks')
-    .where({ 'project_id': id })
+    .where({ id })
     .insert(task);
+}
+
+function update(changes, id) {
+  return db('tasks')
+    .where({ id })
+    .update(changes)
+}
+
+function remove(id) {
+  return db('tasks').where({ id }).del()
 }

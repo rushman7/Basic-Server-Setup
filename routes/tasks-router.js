@@ -17,10 +17,33 @@ router.get('/:id', middleware.validateID, (req, res) => {
     .catch(err => res.status(500).json(err))
 })
 
-router.post('/:id', middleware.validateID, middleware.validateTask, (req, res) => {
-  db.insert(req.params.id, req.body)
+router.post('/', middleware.validateID, middleware.validateTask, (req, res) => {
+  db.insert(req.body.project_id, req.body)
     .then(() => res.status(201).json(req.body))
-    .catch(() => res.status(500).json({ error: 'There was an error while saving the task to the database' }))
+    .catch(err => res.status(500).json(err));
 })
+
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+
+  db.getTask(id)
+    .then(task => {
+      if (task) db.update(changes, id).then(updatedTask => res.json(updatedTask));
+      else res.status(404).json({ message: 'Could not find task with given id.' });
+    })
+    .catch((err) => res.status(500).json(err));
+});
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+
+  db.remove(id)
+    .then(deleted => {
+      if (deleted) res.json({ message: `Task with id ${id} has been removed.` });
+      else res.status(404).json({ message: 'Could not find task with given id.' });
+    })
+    .catch((err) => res.status(500).json(err));
+});
 
 module.exports = router;
