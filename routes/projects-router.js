@@ -20,7 +20,7 @@ router.get('/:id', middleware.validateID, (req, res) => {
 router.post('/', middleware.validateProjectBody, (req, res) => {
   db.insert(req.body)
     .then(() => res.status(201).json(req.body))
-    .catch(() => res.status(500).json({ error: 'There was an error while saving the project to the database' }))
+    .catch((err) => res.status(500).json(err));
 })
 
 router.put('/:id', (req, res) => {
@@ -32,7 +32,7 @@ router.put('/:id', (req, res) => {
     if (project) db.update(changes, id).then(updatedProject => res.json(updatedProject));
     else res.status(404).json({ message: 'Could not find project with given id' });
   })
-  .catch(() => res.status(500).json({ message: 'Failed to update project' }));
+  .catch((err) => res.status(500).json(err));
 });
 
 router.delete('/:id', (req, res) => {
@@ -43,7 +43,7 @@ router.delete('/:id', (req, res) => {
       if (deleted) res.json({ message: `Project with id ${id} has been removed.` });
       else res.status(404).json({ message: 'Could not find project with given id' });
     })
-    .catch(() => res.status(500).json({ message: 'Failed to update project' }));
+    .catch((err) => res.status(500).json(err));
 });
 
 module.exports = router;

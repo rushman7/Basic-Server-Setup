@@ -37,8 +37,7 @@ function getProjects(id) {
 };
 
 function insert(project) {
-  return db('projects')
-    .insert(project)
+  return db('projects').insert(project)
 }
 
 function update(changes, id) {
