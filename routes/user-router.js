@@ -6,13 +6,13 @@ const middleware = require('../api/middleware');
 
 const router = express.Router();
 
-router.get('/users', (req, res) => {
+router.get('/users', middleware.restricted, (req, res) => {
   db.getUsers()
     .then(users => res.status(200).json(users))
     .catch(err => res.status(500).json(err))
 })
 
-router.get('/user/:id', (req, res) => {
+router.get('/user/:id', middleware.restricted, (req, res) => {
   db.getUsers(req.params.id)
     .then(user => res.status(200).json(user))
     .catch(err => res.status(500).json(err))
@@ -35,6 +35,7 @@ router.post('/login', middleware.validateCredentialBody, (req, res) => {
 
   db.getUser({ username })
     .then(user => {
+      console.log(user)
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = middleware.generateToken(user);
 

@@ -29,7 +29,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(morgan("combined"));
 server.use(helmet());
 
-server.use('/api/projects', projectRouter);
+server.use('/api/projects', middleware.restricted, projectRouter);
 server.use('/api/tasks', middleware.restricted, taskRouter);
 server.use('/api/resources', middleware.restricted, resourceRouter);
 server.use('/api', userRouter);
