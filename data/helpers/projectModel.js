@@ -3,7 +3,12 @@ const mappers = require('./mappers');
 const taskMiddleware = require('./taskModel');
 const resourceMiddleware = require('./resourceModel');
 
-module.exports = { getProjects, insert }
+module.exports = { 
+  getProjects, 
+  insert, 
+  update,
+  remove
+}
 
 function getProjects(id) {
   let query = db('projects as p')
@@ -34,4 +39,14 @@ function getProjects(id) {
 function insert(project) {
   return db('projects')
     .insert(project)
+}
+
+function update(changes, id) {
+  return db('projects')
+    .where({ id })
+    .update(changes)
+}
+
+function remove(id) {
+  return db('projects').where({ id }).del()
 }
