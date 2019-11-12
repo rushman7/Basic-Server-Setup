@@ -2,6 +2,7 @@ module.exports = {
   intToBoolean,
   booleanToint,
   projectToBody,
+  userToBody
 };
 
 function intToBoolean(int) {
@@ -26,4 +27,15 @@ function projectToBody(project) {
   }
 
   return result;
+}
+
+function userToBody(user) {
+  if (user.projects) {
+    user.projects = user.projects.map(project => ({
+      ...project,
+      completed: intToBoolean(project.completed),
+    }));
+  }
+
+  return user;
 }
