@@ -2,8 +2,6 @@ module.exports = {
   intToBoolean,
   booleanToint,
   projectToBody,
-  taskToBody,
-  resourceToBody,
 };
 
 function intToBoolean(int) {
@@ -27,27 +25,5 @@ function projectToBody(project) {
     }));
   }
 
-  if (project.resources) {
-    result.resources = project.resources.map(resource => ({
-      ...resource,
-      completed: intToBoolean(resource.completed),
-    }));
-  }
-
   return result;
 }
-
-function taskToBody(task) {
-  return {
-    ...task,
-    completed: intToBoolean(task.completed),
-  };
-}
-
-function resourceToBody(resource) {
-  return {
-    ...resource,
-    completed: intToBoolean(resource.completed),
-  };
-}
-

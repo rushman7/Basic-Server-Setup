@@ -5,13 +5,13 @@ module.exports = { getTask, insert, getTasks }
 
 function getTasks() {
   return db('tasks')
-    .then(tasks => tasks.map(task => mappers.taskToBody(task)))
+    .then(tasks => tasks.map(task => mappers.projectToBody(task)))
 }
 
 function getTask(id) {
   return db('tasks')
     .where('project_id', id)
-    .then(tasks => tasks.map(task => mappers.taskToBody(task)))
+    .then(tasks => tasks.map(task => mappers.projectToBody(task)))
 }
 
 function insert(id, task) {

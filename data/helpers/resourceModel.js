@@ -3,14 +3,13 @@ const db = require('../dbConfig');
 module.exports = { getResources, insert }
 
 function getResources(id) {
-  if (id) {
-    return db('projects as p')
-      .join('resources as r', 'p.id', 'r.project_id')
-      .select('r.id', 'r.name', 'r.description', 'r.project_id')
-      .where('p.id', id)
-  } else {
-    return db('resources')
-  }
+  if (id) return db('projects as p')
+    .join('resources as r', 'p.id', 'r.project_id')
+    .select('r.id', 'r.name', 'r.description', 'p.name')
+    .where('p.id', id)
+  else return db('projects as p')
+    .join('resources as r', 'p.id', 'r.project_id')
+    .select('r.id', 'r.name', 'r.description', 'p.name as project')
 }
 
 function insert(resource) {
