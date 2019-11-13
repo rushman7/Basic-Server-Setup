@@ -35,7 +35,6 @@ router.post('/login', middleware.validateCredentialBody, (req, res) => {
 
   db.getUser({ username })
     .then(user => {
-      console.log(user)
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = middleware.generateToken(user);
 
