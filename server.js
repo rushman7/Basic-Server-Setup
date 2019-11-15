@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const session = require('express-session');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -24,8 +23,7 @@ const sessionConfig = {
 
 const server = express();
 server.use(session(sessionConfig))
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
+server.use(express.json());
 server.use(morgan("combined"));
 server.use(helmet());
 
