@@ -48,11 +48,31 @@ function validateCredentialBody(req, res, next) {
   else next();
 }
 
+// function restricted(req, res, next) {
+//   if (req.session && req.session.user) next();
+//   else res.status(401).json({ message: 'Please log in.' })
+// }
+
 function restricted(req, res, next) {
-  console.log(req.session)
-  if (req.session && req.session.user) next();
-  else res.status(401).json({ message: 'Please log in.' })
+  const token = req.headers.authorization
+  if(token){
+      const secret = 'qwdqwldq9u129dj1l2du1o2d12';
+
+      jwt.verify(token, secret, (error, decodedToken) => {
+          if(error){
+              res.status(401).json({message: `tampered token. invalid creds.`})
+          }
+          else{
+              res.decodeJwt = decodedToken;
+              next();
+          }
+      })
+  }
+  else{
+      res.status(400).json({ message: 'No credentials provided' });
 }
+}
+
 
 function generateToken(user) {
   const payload = {
